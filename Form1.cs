@@ -205,14 +205,65 @@ namespace Блокнот
 			}
 		}
 
-		private void richTextBox1_TextChanged(object sender, EventArgs e)
+		public void richTextBox1_TextChanged(object sender, EventArgs e)
 		{
 			tbChange = true;
+			string text = richTextBox1.Text;
+			// Количество строк в тексте
+			statusLinesCount.Text = richTextBox1.Lines.Count().ToString();
+			// Количество слов в тексте
+			statusWordsCount.Text = text.Split(new Char[] { ' ', '\t', '\n', '\r', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-',
+				'_', '+', '=', '[', '{', ']', '}', '/', '\\', '|', '"', ':', ';', '.', ',', '>', '<' }, StringSplitOptions.RemoveEmptyEntries).Length.ToString();
+			// Количество символов без пробелов
+			statusCharCount.Text = text.Replace(" ", "").Replace("\t", "").Replace("\n", "").Replace("\r", "").ToCharArray().Length.ToString();
+			// Количество символов с пробелами
+			statusCharSpaceCount.Text = text.ToCharArray().Length.ToString();
 		}
 
 		private void выходToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.Close();
+		}
+
+		private void файлToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		public static void StatusAnalize(ref RichTextBox notebox, ref ToolStripStatusLabel statusLinesCount, ref ToolStripStatusLabel statusWordsCount, ref ToolStripStatusLabel statusCharSpaceCount, ref ToolStripStatusLabel statusCharCount)
+		{
+			string text = notebox.Text;
+			// Количество строк в тексте
+			statusLinesCount.Text = notebox.Lines.Count().ToString();
+			// Количество слов в тексте
+			statusWordsCount.Text = text.Split(new Char[] { ' ', '\t', '\n', '\r', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-',
+				'_', '+', '=', '[', '{', ']', '}', '/', '\\', '|', '"', ':', ';', '.', ',', '>', '<' }, StringSplitOptions.RemoveEmptyEntries).Length.ToString();
+			// Количество символов без пробелов
+			statusCharCount.Text = text.Replace(" ", "").Replace("\t", "").Replace("\n", "").Replace("\r", "").ToCharArray().Length.ToString();
+			// Количество символов с пробелами
+			statusCharSpaceCount.Text = text.ToCharArray().Length.ToString();
+		}
+
+		private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("Сделано с любовью","Справка", MessageBoxButtons.OK,MessageBoxIcon.Question);
+		}
+
+		private void найтиИЗаменитьToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SearchForm findText = new SearchForm();
+			findText.Owner = this;
+			findText.Show();
+		}
+
+		private void масштабToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void толькоЧтениеToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			richTextBox1.ReadOnly = !richTextBox1.ReadOnly;
 		}
 	}
 }
